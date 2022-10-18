@@ -1,0 +1,7 @@
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/dto/ResponseDto.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/dto/StatusCode.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/config/WebSecurityConfig.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/constants/Constants.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/config/JacksonConfig.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/filter/JwtAuthenticationFilter.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/md-common-dependencies/src/main/java/com/wtt/commondependencies/model/Principal.java
