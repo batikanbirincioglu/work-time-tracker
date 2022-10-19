@@ -14,4 +14,6 @@ public class Principal {
     private String name;
     private String email;
     private boolean manager;
+    private String username;
+    private String encodedPassword;
 }

@@ -10,7 +10,11 @@ import org.springframework.context.annotation.Configuration;
 public class UserProperties {
     private AdminConfig adminConfig;
 
+    @Data
     public static class AdminConfig {
+        private String name;
+        private String email;
+        private boolean manager;
         private String username;
         private String password;
     }

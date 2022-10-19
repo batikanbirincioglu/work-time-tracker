@@ -2,6 +2,9 @@ package com.wtt.timelog.service;
 
 import com.wtt.commondependencies.dto.ResponseDto;
 import com.wtt.commondependencies.dto.StatusCode;
+import com.wtt.commondependencies.exception.BusinessException;
+import com.wtt.commondependencies.utils.SecurityUtils;
+import com.wtt.timelog.TimeLogError;
 import com.wtt.timelog.dto.TimeLogDto;
 import com.wtt.timelog.entity.TimeLog;
 import com.wtt.timelog.mapper.TimeLogMapper;
@@ -17,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.wtt.timelog.TimeLogError.ALREADY_PUNCHED_IN_TODAY;
+
 @Service
 @RequiredArgsConstructor
 public class TimeLogService {
@@ -24,47 +29,46 @@ public class TimeLogService {
     private final TimeLogRepository timeLogRepository;
 
     @Transactional
-    public ResponseDto punchIn() {
-        Long employeeId = null; // get from authenticatio token
+    public ResponseDto<TimeLogDto> punchIn() {
+        Long employeeId = SecurityUtils.getUserId();
+        String employeeName = SecurityUtils.getName();
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
-        TimeLog timeLog = timeLogRepository.findByEmployeeIdAndStartDate(employeeId, currentDate).orElse(null);
-        if (timeLog != null) {
-            return ResponseDto.builder().statusCode(StatusCode.FAIL).description("You already punched in.").build();
-        } else {
-            timeLog = TimeLog.builder().employeeId(employeeId).startDate(currentDate).startTime(currentTime).build();
-            timeLogRepository.save(timeLog);
-            return ResponseDto.builder().statusCode(StatusCode.SUCCESS).payload(timeLogMapper.toDto(timeLog)).build();
-        }
+        timeLogRepository.findByEmployeeIdAndStartDate(employeeId, currentDate).ifPresent(tl -> {throw new BusinessException(TimeLogError.ALREADY_PUNCHED_IN_TODAY);});
+        TimeLog timeLog = TimeLog.builder()
+                .employeeId(employeeId).employeeName(employeeName)
+                .startDate(currentDate).startTime(currentTime)
+                .build();
+        timeLogRepository.save(timeLog);
+        return ResponseDto.from(StatusCode.SUCCESS, timeLogMapper.toDto(timeLog));
     }
 
     @Transactional
-    public ResponseDto punchOut() {
-        Long employeeId = null; // get from authenticatio token
+    public ResponseDto<TimeLogDto> punchOut() {
+        Long employeeId = SecurityUtils.getUserId();
+        String employeeName = SecurityUtils.getName();
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
-        TimeLog timeLog = timeLogRepository.findByEmployeeIdAndStartDate(employeeId, currentDate).orElse(null);
-        if (timeLog == null) {
-            return ResponseDto.builder().statusCode(StatusCode.FAIL).description("You can not punch out because you didn't punch in before.").build();
-        } else if (timeLog.getEndDate() != null) {
-            return ResponseDto.builder().statusCode(StatusCode.FAIL).description("You have already punched out before.").build();
+        TimeLog timeLog = timeLogRepository.findByEmployeeIdAndStartDate(employeeId, currentDate).orElseThrow(() -> new BusinessException(TimeLogError.NO_PUNCHED_IN_TODAY));
+        if (timeLog.getEndDate() != null) {
+            throw new BusinessException(TimeLogError.ALREADY_PUNCHED_OUT_TODAY);
         } else {
             timeLog.setEndDate(currentDate);
             timeLog.setEndTime(currentTime);
             timeLogRepository.save(timeLog);
-            return ResponseDto.builder().statusCode(StatusCode.SUCCESS).payload(timeLogMapper.toDto(timeLog)).build();
+            return ResponseDto.from(StatusCode.SUCCESS, timeLogMapper.toDto(timeLog));
         }
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto getTimeLog(Long id) {
+    public ResponseDto<TimeLogDto> getTimeLog(Long id) {
         TimeLog timeLog = timeLogRepository.findById(id).orElse(null);
         TimeLogDto timeLogDto = timeLogMapper.toDto(timeLog);
-        return ResponseDto.builder().statusCode(StatusCode.SUCCESS).payload(timeLogDto).build();
+        return ResponseDto.from(StatusCode.SUCCESS, timeLogDto);
     }
 
     @Transactional(readOnly = true)
-    public ResponseDto search(List<Long> employeeIds, LocalDate startDate, LocalDate endDate) {
+    public ResponseDto<List<TimeLogDto>> search(List<Long> employeeIds, LocalDate startDate, LocalDate endDate) {
         List<TimeLog> timeLogs;
         if (!CollectionUtils.isEmpty(employeeIds)) {
             timeLogs = timeLogRepository.findByEmployeeIdInAndStartDateBetween(employeeIds, startDate, endDate).orElse(new ArrayList<>());
@@ -72,6 +76,6 @@ public class TimeLogService {
             timeLogs = timeLogRepository.findByStartDateBetween(startDate, endDate).orElse(new ArrayList<>());
         }
         List<TimeLogDto> timeLogDtos = timeLogs.stream().map(timeLogMapper::toDto).collect(Collectors.toList());
-        return ResponseDto.builder().statusCode(StatusCode.SUCCESS).payload(timeLogDtos).build();
+        return ResponseDto.from(StatusCode.SUCCESS, timeLogDtos);
     }
 }

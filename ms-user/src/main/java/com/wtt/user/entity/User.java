@@ -24,4 +24,5 @@ public class User {
     private String email;
     private boolean manager;
     private String username;
+    private String encodedPassword;
 }

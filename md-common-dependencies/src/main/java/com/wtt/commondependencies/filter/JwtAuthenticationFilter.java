@@ -18,21 +18,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 @Slf4j
 @AllArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private static final String JWT_TOKEN = "JWT_TOKEN";
+    private static final String HEADER_AUTHORIZATION = "Authorization";
+    private static final String PREFIX_BEARER = "Bearer ";
+    private static final String EMPTY = "";
     private final JwtParser jwtParser;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            String jwtToken = request.getHeader(JWT_TOKEN);
-            if (validateJwtToken(jwtParser, jwtToken)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(getPrincipal(jwtParser, jwtToken), jwtToken, null);
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwtToken = request.getHeader(HEADER_AUTHORIZATION);
+            if (jwtToken != null) {
+                jwtToken = jwtToken.replaceFirst(Pattern.quote(PREFIX_BEARER), EMPTY);
+                if (validateJwtToken(jwtParser, jwtToken)) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(getPrincipal(jwtParser, jwtToken), jwtToken, null);
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
         } catch (Exception ex) {
             log.error("Could not set user authentication in security context: {}", ex);
@@ -47,6 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .name(claims.get(Constants.NAME, String.class))
                 .email(claims.get(Constants.EMAIL, String.class))
                 .manager(claims.get(Constants.MANAGER, Boolean.class))
+                .username(claims.get(Constants.USERNAME, String.class))
+                .encodedPassword(claims.get(Constants.ENCODED_PASSWORD, String.class))
                 .build();
     }
 

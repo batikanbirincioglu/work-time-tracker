@@ -12,5 +12,8 @@ spring:
     console:
       enabled=true:
 adminConfig:
+  name: admin
+  email: admin@gmail.com
+  manager: true
   username: admin
   password: admin

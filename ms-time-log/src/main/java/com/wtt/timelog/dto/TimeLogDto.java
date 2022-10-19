@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -14,6 +16,12 @@ import java.time.LocalDateTime;
 public class TimeLogDto {
     private Long id;
     private Long employeeId;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private String employeeName;
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
+    private int workingHours;
+    private int workingMinutes;
+    private int workingSeconds;
 }

@@ -1,5 +1,5 @@
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/dto/CreateUserRequestDto.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/dto/AuthenticateRequestDto.java
-/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/dto/CreateUserRequest.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/mapper/UserMapper.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/service/UserService.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/entity/User.java
@@ -9,5 +9,6 @@
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/service/AuthenticationService.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/controller/UserController.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/controller/AuthenticationController.java
+/Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/UserError.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/UserApplication.java
 /Users/batikan.birincioglu/Desktop/projects/work-time-tracker/ms-user/src/main/java/com/wtt/user/dto/AuthenticateResponseDto.java

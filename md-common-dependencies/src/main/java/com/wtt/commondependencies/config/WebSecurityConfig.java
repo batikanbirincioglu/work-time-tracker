@@ -4,6 +4,7 @@ import com.wtt.commondependencies.constants.Constants;
 import com.wtt.commondependencies.filter.JwtAuthenticationFilter;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.impl.TextCodec;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -23,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 @EnableMethodSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig implements ApplicationContextAware {
-    private static final String[] WHITE_LISTED_URLS = {"/users/authenticate"};
+    private static final String[] WHITE_LISTED_URLS = {"/authenticate"};
 
     private ApplicationContext applicationContext;
 
@@ -47,7 +48,7 @@ public class WebSecurityConfig implements ApplicationContextAware {
     @Bean
     public JwtParser parser() {
         return Jwts.parser()
-                .setSigningKey(Constants.JWT_SECRET.getBytes(StandardCharsets.UTF_8));
+                .setSigningKey(TextCodec.BASE64.decode(Constants.JWT_SECRET));
     }
 
     @Override

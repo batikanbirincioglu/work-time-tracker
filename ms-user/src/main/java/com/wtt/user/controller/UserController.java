@@ -1,7 +1,7 @@
 package com.wtt.user.controller;
 
 import com.wtt.commondependencies.dto.ResponseDto;
-import com.wtt.user.dto.CreateUserRequest;
+import com.wtt.user.dto.CreateUserRequestDto;
 import com.wtt.user.dto.UserDto;
 import com.wtt.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -13,23 +13,18 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/authenticate")
-    public ResponseDto getAuthentication() {
-        return ResponseDto.builder().payload("successssssss").build();
-    }
-
     @PostMapping
-    public ResponseDto createUser(@RequestBody CreateUserRequest createUserRequest) {
-        return userService.createUser(createUserRequest);
+    public ResponseDto<Void> createUser(@RequestBody CreateUserRequestDto request) {
+        return userService.createUser(request);
     }
 
     @GetMapping("/{id}")
-    public ResponseDto getUser(@PathVariable Long id) {
+    public ResponseDto<UserDto> getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseDto updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
+    public ResponseDto<Void> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }
 

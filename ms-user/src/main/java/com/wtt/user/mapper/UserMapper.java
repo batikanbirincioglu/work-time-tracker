@@ -1,10 +1,9 @@
 package com.wtt.user.mapper;
 
-import com.wtt.user.dto.CreateUserRequest;
+import com.wtt.user.dto.CreateUserRequestDto;
 import com.wtt.user.dto.UserDto;
 import com.wtt.user.entity.User;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -12,5 +11,5 @@ public interface UserMapper {
 
     User toEntity(UserDto userDto);
 
-    User toEntity(CreateUserRequest createUserRequest);
+    User toEntity(CreateUserRequestDto createUserRequestDto);
 }

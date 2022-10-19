@@ -1,6 +1,6 @@
 package com.wtt.user.mapper;
 
-import com.wtt.user.dto.CreateUserRequest;
+import com.wtt.user.dto.CreateUserRequestDto;
 import com.wtt.user.dto.UserDto;
 import com.wtt.user.dto.UserDto.UserDtoBuilder;
 import com.wtt.user.entity.User;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-19T13:11:43+0300",
+    date = "2022-10-20T02:21:57+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.15 (Eclipse Adoptium)"
 )
 @Component
@@ -28,6 +28,8 @@ public class UserMapperImpl implements UserMapper {
         userDto.name( user.getName() );
         userDto.email( user.getEmail() );
         userDto.manager( user.isManager() );
+        userDto.username( user.getUsername() );
+        userDto.encodedPassword( user.getEncodedPassword() );
 
         return userDto.build();
     }
@@ -44,21 +46,24 @@ public class UserMapperImpl implements UserMapper {
         user.name( userDto.getName() );
         user.email( userDto.getEmail() );
         user.manager( userDto.isManager() );
+        user.username( userDto.getUsername() );
+        user.encodedPassword( userDto.getEncodedPassword() );
 
         return user.build();
     }
 
     @Override
-    public User toEntity(CreateUserRequest createUserRequest) {
-        if ( createUserRequest == null ) {
+    public User toEntity(CreateUserRequestDto createUserRequestDto) {
+        if ( createUserRequestDto == null ) {
             return null;
         }
 
         UserBuilder user = User.builder();
 
-        user.name( createUserRequest.getName() );
-        user.email( createUserRequest.getEmail() );
-        user.manager( createUserRequest.isManager() );
+        user.name( createUserRequestDto.getName() );
+        user.email( createUserRequestDto.getEmail() );
+        user.manager( createUserRequestDto.isManager() );
+        user.username( createUserRequestDto.getUsername() );
 
         return user.build();
     }
