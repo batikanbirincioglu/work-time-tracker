@@ -86,4 +86,9 @@ public class UserService {
                 .collect(Collectors.toList());
         return ResponseDto.builder().statusCode(StatusCode.SUCCESS).payload(employeeDtos).build();
     }
+
+    @Transactional(readOnly = true)
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

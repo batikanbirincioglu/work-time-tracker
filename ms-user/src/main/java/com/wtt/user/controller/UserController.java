@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    @GetMapping("/authenticate")
+    public ResponseDto getAuthentication() {
+        return ResponseDto.builder().payload("successssssss").build();
+    }
+
     @PostMapping
     public ResponseDto createUser(@RequestBody CreateUserRequest createUserRequest) {
         return userService.createUser(createUserRequest);
