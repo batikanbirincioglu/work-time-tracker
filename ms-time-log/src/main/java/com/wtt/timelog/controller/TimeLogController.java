@@ -5,6 +5,7 @@ import com.wtt.timelog.dto.TimeLogDto;
 import com.wtt.timelog.service.TimeLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -31,6 +32,7 @@ public class TimeLogController {
         return timeLogService.punchOut();
     }
 
+    @PreAuthorize("isManager()")
     @GetMapping("/search")
     public ResponseDto<List<TimeLogDto>> search(@RequestParam(name = "employeeIds", required = false) List<Long> employeeIds,
                                                 @RequestParam(name = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE) LocalDate startDate,

@@ -1,4 +1,4 @@
-package com.wtt.commondependencies.utils;
+package com.wtt.commondependencies.security;
 
 import com.wtt.commondependencies.model.Principal;
 import org.springframework.security.core.context.SecurityContextHolder;

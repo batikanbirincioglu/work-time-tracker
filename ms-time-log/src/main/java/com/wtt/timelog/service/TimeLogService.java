@@ -3,7 +3,7 @@ package com.wtt.timelog.service;
 import com.wtt.commondependencies.dto.ResponseDto;
 import com.wtt.commondependencies.dto.StatusCode;
 import com.wtt.commondependencies.exception.BusinessException;
-import com.wtt.commondependencies.utils.SecurityUtils;
+import com.wtt.commondependencies.security.SecurityUtils;
 import com.wtt.timelog.TimeLogError;
 import com.wtt.timelog.dto.TimeLogDto;
 import com.wtt.timelog.entity.TimeLog;
@@ -19,8 +19,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.wtt.timelog.TimeLogError.ALREADY_PUNCHED_IN_TODAY;
 
 @Service
 @RequiredArgsConstructor
