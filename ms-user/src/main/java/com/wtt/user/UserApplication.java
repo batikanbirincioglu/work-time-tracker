@@ -1,6 +1,7 @@
 package com.wtt.user;
 
 import com.wtt.commondependencies.config.CommonConfig;
+import com.wtt.commondependencies.config.MethodSecurityConfig;
 import com.wtt.commondependencies.config.WebSecurityConfig;
 import com.wtt.user.dto.CreateUserRequestDto;
 import com.wtt.user.service.UserService;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootApplication
-@Import({WebSecurityConfig.class, CommonConfig.class})
+@Import({WebSecurityConfig.class, CommonConfig.class, MethodSecurityConfig.class})
 @Configuration
 public class UserApplication {
     public static void main(String[] args) {
