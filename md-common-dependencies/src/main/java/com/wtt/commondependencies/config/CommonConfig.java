@@ -3,6 +3,7 @@ package com.wtt.commondependencies.config;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wtt.commondependencies.advice.GlobalControllerAdvice;
+import com.wtt.commondependencies.filter.GlobalControllerLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,5 +21,10 @@ public class CommonConfig {
     @Bean
     public GlobalControllerAdvice globalControllerAdvice() {
         return new GlobalControllerAdvice();
+    }
+
+    @Bean
+    public GlobalControllerLoggingFilter globalControllerLoggingFilter() {
+        return new GlobalControllerLoggingFilter();
     }
 }
