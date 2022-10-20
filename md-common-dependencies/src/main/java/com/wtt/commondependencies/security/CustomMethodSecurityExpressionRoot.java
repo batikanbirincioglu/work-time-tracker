@@ -1,9 +1,11 @@
 package com.wtt.commondependencies.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionOperations;
 import org.springframework.security.core.Authentication;
 
+@Slf4j
 public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot implements MethodSecurityExpressionOperations {
     private Object filterObject;
     private Object returnObject;
@@ -38,6 +40,12 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot i
     }
 
     public boolean isManager() {
-        return SecurityUtils.isManager();
+        boolean manager = SecurityUtils.isManager();
+        if (manager) {
+            log.info("Authenticated person is manager");
+        } else {
+            log.info("Authenticated person is not manager");
+        }
+        return manager;
     }
 }
