@@ -3,13 +3,11 @@ package com.wtt.commondependencies.filter;
 import com.wtt.commondependencies.wrapper.CustomHttpRequestWrapper;
 import com.wtt.commondependencies.wrapper.CustomHttpResponseWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StreamUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class GlobalControllerLoggingFilter implements Filter {

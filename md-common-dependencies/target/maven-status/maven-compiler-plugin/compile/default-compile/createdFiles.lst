@@ -6,11 +6,15 @@ com/wtt/commondependencies/config/WebSecurityConfig.class
 com/wtt/commondependencies/config/CommonConfig.class
 com/wtt/commondependencies/dto/ResponseDto.class
 com/wtt/commondependencies/constants/Constants.class
+com/wtt/commondependencies/wrapper/CustomHttpResponseWrapper.class
+com/wtt/commondependencies/wrapper/CustomHttpRequestWrapper.class
 com/wtt/commondependencies/dto/StatusCode.class
 com/wtt/commondependencies/advice/GlobalControllerAdvice.class
+com/wtt/commondependencies/filter/GlobalControllerLoggingFilter.class
 com/wtt/commondependencies/model/Principal.class
 com/wtt/commondependencies/exception/BusinessException.class
 com/wtt/commondependencies/filter/JwtAuthenticationFilter.class
+com/wtt/commondependencies/wrapper/CustomInputStreamWrapper.class
 com/wtt/commondependencies/config/MethodSecurityConfig.class
 com/wtt/commondependencies/security/CustomMethodSecurityExpressionHandler.class
 com/wtt/commondependencies/security/SecurityUtils.class

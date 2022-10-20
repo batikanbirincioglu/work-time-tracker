@@ -16,9 +16,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.wtt.commondependencies.constants.Constants.TOKEN_CREATED_DATE_FORMATTER;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +45,7 @@ public class AuthenticationService {
                         .claim(Constants.MANAGER, user.isManager())
                         .claim(Constants.USERNAME, user.getUsername())
                         .claim(Constants.ENCODED_PASSWORD, user.getEncodedPassword())
+                        .claim(Constants.TOKEN_CREATED_DATE, TOKEN_CREATED_DATE_FORMATTER.format(LocalDateTime.now()))
                         .setIssuedAt(new Date())
                         .signWith(
                                 SignatureAlgorithm.HS256,

@@ -18,7 +18,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
+
+import static com.wtt.commondependencies.constants.Constants.TOKEN_CREATED_DATE_FORMATTER;
 
 @Slf4j
 @AllArgsConstructor
@@ -60,8 +64,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public static boolean validateJwtToken(JwtParser parser, String jwtToken) throws JwtException {
         if (StringUtils.hasText(jwtToken)) {
-            parser.parseClaimsJws(jwtToken);
-            return true;
+            Claims claims = parser.parseClaimsJws(jwtToken).getBody();
+            LocalDateTime createdDate = LocalDateTime.parse(claims.get(Constants.TOKEN_CREATED_DATE, String.class), TOKEN_CREATED_DATE_FORMATTER);
+            long minutesPassed = ChronoUnit.MINUTES.between(createdDate, LocalDateTime.now());
+            return minutesPassed < Constants.TOKEN_EXPIRY_IN_MINUTES;
         }
         return false;
     }
