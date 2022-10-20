@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.Filter;
 
 @EnableWebSecurity
-@EnableMethodSecurity
 public class WebSecurityConfig implements ApplicationContextAware {
     private static final String[] WHITE_LISTED_URLS = {"/authenticate"};
 
