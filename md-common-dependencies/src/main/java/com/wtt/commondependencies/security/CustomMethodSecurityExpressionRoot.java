@@ -42,9 +42,9 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot i
     public boolean isManager() {
         boolean manager = SecurityUtils.isManager();
         if (manager) {
-            log.info("Authenticated person is manager");
+            log.info("Authenticated person = {} is manager", SecurityUtils.getName());
         } else {
-            log.info("Authenticated person is not manager");
+            log.info("Authenticated person = {} is not manager", SecurityUtils.getName());
         }
         return manager;
     }
