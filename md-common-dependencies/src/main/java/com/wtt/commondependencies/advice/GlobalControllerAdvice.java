@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalControllerAdvice {
     @ExceptionHandler(BusinessException.class)
     public ResponseDto handleBusinessException(BusinessException businessException) {
+        log.error("{} occurred.", businessException.getClass().getSimpleName(), businessException);
         return ResponseDto.from(StatusCode.FAIL, null, businessException);
     }
 }

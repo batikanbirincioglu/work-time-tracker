@@ -7,6 +7,7 @@ public class BusinessException extends RuntimeException {
     private BusinessError businessError;
 
     public BusinessException(BusinessError businessError) {
+        super(businessError.getString());
         this.businessError = businessError;
     }
 }
